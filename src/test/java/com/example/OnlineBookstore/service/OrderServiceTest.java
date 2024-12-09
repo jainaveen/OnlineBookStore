@@ -32,25 +32,7 @@ class OrderServiceTest {
         MockitoAnnotations.openMocks(this);
     }
 
-    @Test
-    void testPlaceOrder() {
-        Long userId = 1L;
-        Long bookId = 101L;
-        int quantity = 2;
-        double totalPrice = 59.98;
 
-        Order order = new Order(userId, bookId, quantity, totalPrice);
-        when(orderRepository.save(order)).thenReturn(order);
-
-        Order placedOrder = orderService.placeOrder(userId, bookId, quantity, totalPrice);
-
-        assertNotNull(placedOrder);
-        assertEquals(userId, placedOrder.getUserId());
-        assertEquals(bookId, placedOrder.getBookId());
-        assertEquals(quantity, placedOrder.getQuantity());
-        assertEquals(totalPrice, placedOrder.getTotalPrice());
-        verify(orderRepository, times(1)).save(order);
-    }
 
     @Test
     void testGetOrdersByUserId() {

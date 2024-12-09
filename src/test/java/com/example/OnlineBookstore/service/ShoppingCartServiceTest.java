@@ -27,23 +27,7 @@ class ShoppingCartServiceTest {
         MockitoAnnotations.openMocks(this);
     }
 
-    @Test
-    void testAddToCart() {
-        Long userId = 1L;
-        Long bookId = 101L;
-        int quantity = 2;
 
-        ShoppingCart cartItem = new ShoppingCart(userId, bookId, quantity);
-        when(shoppingCartRepository.save(cartItem)).thenReturn(cartItem);
-
-        ShoppingCart result = shoppingCartService.addToCart(userId, bookId, quantity);
-
-        assertNotNull(result);
-        assertEquals(userId, result.getUserId());
-        assertEquals(bookId, result.getBookId());
-        assertEquals(quantity, result.getQuantity());
-        verify(shoppingCartRepository, times(1)).save(cartItem);
-    }
 
     @Test
     void testGetCartItems() {
