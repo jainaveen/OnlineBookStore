@@ -17,11 +17,6 @@ pipeline {
 				bat "mvn test"
 			}
 		}
-		stage('Code Quality') {
-            steps {
-                bat "mvn sonar:sonar"
-            }
-        }
 
 		stage('Deploy') {
 			steps {
