@@ -17,10 +17,22 @@ pipeline {
 				bat "mvn test"
 			}
 		}
+		stage('Code Quality') {
+            steps {
+                bat "mvn sonar:sonar"
+            }
+        }
+
 		stage('Deploy') {
 			steps {
 			    bat "mvn jar:jar deploy:deploy"
 			}
 		}
+		stage('Archive Artifacts') {
+            steps {
+                archiveArtifacts artifacts: '**/target/*.jar', fingerprint: true
+            }
+        }
+
 	}
 }
