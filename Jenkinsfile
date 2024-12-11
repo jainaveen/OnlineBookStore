@@ -27,7 +27,7 @@ pipeline {
 
                             // Replace the version in pom.xml
                          bat """
-                             powershell -Command "(Get-Content pom.xml) -replace '<version>[^<]*</version>', '<version>${env.BUILD_VERSION}</version>' | Set-Content pom.xml"
+                             powershell -Command "(Get-Content pom.xml) -replace '<version>\\d+\\.\\d+\\.\\d+(-\\S+)?</version>', '<version>${env.BUILD_VERSION}</version>' | Set-Content pom.xml"
                          """
 
                   }
