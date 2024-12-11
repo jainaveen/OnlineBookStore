@@ -26,9 +26,10 @@ pipeline {
                             env.BUILD_VERSION = "1.0.${BUILD_NUMBER}-${env.BUILD_TIMESTAMP}"
 
                             // Replace the version in pom.xml
-                           bat """
-                                           powershell -Command "(Get-Content pom.xml) -replace '<version>.*</version>', '<version>${env.BUILD_VERSION}</version>' | Set-Content pom.xml"
-                               """
+                         bat """
+                             powershell -Command "(Get-Content pom.xml) -replace '<version>[^<]*</version>', '<version>${env.BUILD_VERSION}</version>' | Set-Content pom.xml"
+                         """
+
                   }
              }
         }
