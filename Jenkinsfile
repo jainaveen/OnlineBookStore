@@ -32,9 +32,12 @@
                         steps {
                             script {
                                 withDockerRegistry([credentialsId: 'docker-credentials', url: 'https://index.docker.io/v1/']) {
-                                    bat """
-                                    docker push ${DOCKER_IMAGE}
-                                    """
+                                  script {
+                                          // Use Docker Hub credentials (with access token)
+                                          docker.withRegistry('https://index.docker.io/v1/', 'docker-credentials') {
+                                              bat "docker push ${DOCKER_IMAGE}"
+                                          }
+                                  }
                                 }
                             }
                         }
