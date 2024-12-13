@@ -2,7 +2,7 @@
         agent any
         environment {
             mavenHome = tool 'maven3'
-            BUILD_VERSION = "1.0.${BUILD_NUMBER}-${env.BUILD_TIMESTAMP}"
+            BUILD_VERSION = "1.0.${BUILD_NUMBER}-${new Date().format('yyyyMMdd-HHmmss')}"
             DOCKER_IMAGE = "adhadhi/onlinebookstore:${BUILD_VERSION}"
         }
         tools {
