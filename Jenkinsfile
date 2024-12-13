@@ -43,11 +43,6 @@
                         }
             }
 
-            stage('Deploy') {
-                steps {
-                    bat "mvn deploy"
-                }
-            }
             stage('Archive Artifacts') {
                 steps {
                     archiveArtifacts artifacts: '**/target/*.jar', fingerprint: true
