@@ -1,0 +1,44 @@
+apiVersion: apps/v1  # The API version for the Deployment resource.
+kind: Deployment     # Specifies that this file defines a Deployment resource.
+metadata:
+  name: onlinebookstore-deployment  # The name of the Deployment.
+  labels:                           # Labels are key-value pairs used to organize and identify objects.
+    app: onlinebookstore
+
+spec:
+  replicas: 3                       # Number of pod instances (replicas) to run.
+  selector:                         # Defines how to identify pods that belong to this Deployment.
+    matchLabels:
+      app: onlinebookstore
+  template:                         # Template for creating the Pods managed by the Deployment.
+    metadata:
+      labels:                       # Labels for the Pods.
+        app: onlinebookstore
+    spec:
+      containers:                   # List of containers to run in the Pod.
+        - name: onlinebookstore       # Name of the container.
+          image: adhadhi/onlinebookstore:1.0.0  # Docker image to use for the container.
+          ports:
+            - containerPort: 8080       # Port on which the application listens inside the container.
+          env:                        # Environment variables for the container.
+            - name: SPRING_PROFILES_ACTIVE
+              value: "prod"
+          resources:                  # (Optional) Resource limits and requests for the container.
+            limits:
+              memory: "512Mi"         # Maximum memory the container can use.
+              cpu: "500m"             # Maximum CPU the container can use.
+            requests:
+              memory: "256Mi"         # Guaranteed memory for the container.
+              cpu: "250m"             # Guaranteed CPU for the container.
+          readinessProbe:             # (Optional) Checks if the application is ready to serve traffic.
+            httpGet:
+              path: /actuator/health  # Path to check the application's health.
+              port: 8080
+            initialDelaySeconds: 5
+            periodSeconds: 10
+          livenessProbe:              # (Optional) Checks if the application is alive and responsive.
+            httpGet:
+              path: /actuator/health
+              port: 8080
+            initialDelaySeconds: 10
+            periodSeconds: 15

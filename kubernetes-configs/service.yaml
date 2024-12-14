@@ -1,0 +1,15 @@
+apiVersion: v1             # The API version for the Service resource.
+kind: Service              # Specifies that this file defines a Service resource.
+metadata:
+  name: onlinebookstore-service  # The name of the Service.
+  labels:                        # Labels to organize and identify the Service.
+    app: onlinebookstore
+
+spec:
+  selector:                      # Selects Pods that match these labels to associate with the Service.
+    app: onlinebookstore
+  ports:                         # Defines which ports the Service will expose.
+    - protocol: TCP                # Protocol used (TCP by default).
+      port: 80                     # The port the Service exposes to the client.
+      targetPort: 8080             # The port on the container that the Service forwards requests to.
+  type: LoadBalancer             # The type of Service (ClusterIP, NodePort, LoadBalancer, ExternalName).
