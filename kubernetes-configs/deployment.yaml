@@ -17,7 +17,8 @@ spec:
     spec:
       containers:                   # List of containers to run in the Pod.
         - name: onlinebookstore       # Name of the container.
-          image: adhadhi/onlinebookstore:1.0.0  # Docker image to use for the container.
+          image: adhadhi/onlinebookstore:latest
+          imagePullPolicy: Always     # Docker image to use for the container.
           ports:
             - containerPort: 8080       # Port on which the application listens inside the container.
           env:                        # Environment variables for the container.
